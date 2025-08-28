@@ -1,8 +1,10 @@
 package com.david.jpa_project.model.entity;
 
-import com.david.jpa_project.model.enums.AccessType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
@@ -11,20 +13,15 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "T_ACCESS_TOKEN", schema = "demo")
-public class AccessToken {
+@Table(name = "T_PRODUCT_CATEGORY", schema = "demo", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 50)
     @Basic(optional = false)
-    @Column(name = "jwt_id")
-    private String jwtId;
-
-    @Enumerated(EnumType.STRING)
-    @Basic(optional = false)
-    @Column(name = "access_type")
-    private AccessType accessType;
+    private String name;
 
     @Basic(optional = false, fetch = FetchType.LAZY)
     @Temporal(TemporalType.TIMESTAMP)
@@ -36,4 +33,7 @@ public class AccessToken {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
+    @Basic(optional = false, fetch = FetchType.LAZY)
+    @Column(name = "user_audit")
+    private String userAudit;
 }

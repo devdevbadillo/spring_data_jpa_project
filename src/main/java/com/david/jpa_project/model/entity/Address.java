@@ -13,28 +13,31 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "T_CUSTOMERS", schema = "demo",
-        uniqueConstraints = { @UniqueConstraint( columnNames = { "phone_number" } ) }
-)
-public class Customer {
+@Table(name = "T_ADDRESSES", schema = "demo")
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Basic(optional = false)
+    @Column(length = 70)
+    private String street;
+
+    @Basic(optional = false)
     @Column(length = 50)
-    private String name;
+    private String city;
 
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Column(length = 50, name = "last_name")
-    private String lastName;
+    @Basic(optional = false)
+    @Column(length = 50)
+    private String state;
 
-    @Transient
-    private String fullName;
+    @Basic(optional = false)
+    @Column(length = 50)
+    private String country;
 
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Column(length = 20, name = "phone_number")
-    private String phoneNumber;
+    @Basic(optional = false)
+    @Column(length = 20, name = "zip_code")
+    private String zipCode;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Basic(optional = false, fetch = FetchType.LAZY)

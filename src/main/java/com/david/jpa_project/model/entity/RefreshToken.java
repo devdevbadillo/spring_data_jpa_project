@@ -21,12 +21,12 @@ public class RefreshToken {
     @Column(name = "jwt_id")
     private String jwtId;
 
-    @Basic(optional = false)
+    @Basic(optional = false, fetch = FetchType.LAZY)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     private Timestamp createdAt;
 
-    @Basic(optional = false)
+    @Basic(optional = false, fetch = FetchType.LAZY)
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Timestamp updatedAt;
