@@ -1,10 +1,9 @@
 package com.david.jpa_project.model.entity;
 
+import com.david.jpa_project.model.embeddable.AuditData;
 import com.david.jpa_project.model.embeddable.RefreshTokenId;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -17,17 +16,11 @@ public class RefreshToken {
     @EmbeddedId
     private RefreshTokenId id;
 
-    @Basic(optional = false)
-    @Column(name = "jwt_id")
-    private String jwtId;
+    @MapsId("accessTokenId")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "access_token_id", nullable = false)
+    private AccessToken accessToken;
 
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
-
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    @Embedded
+    private AuditData auditData;
 }

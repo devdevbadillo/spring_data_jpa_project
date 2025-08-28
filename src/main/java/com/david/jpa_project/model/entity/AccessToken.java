@@ -1,10 +1,9 @@
 package com.david.jpa_project.model.entity;
 
+import com.david.jpa_project.model.embeddable.AuditData;
 import com.david.jpa_project.model.enums.AccessType;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -26,14 +25,6 @@ public class AccessToken {
     @Column(name = "access_type")
     private AccessType accessType;
 
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
-
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private Timestamp updatedAt;
-
+    @Embedded
+    private AuditData auditData;
 }

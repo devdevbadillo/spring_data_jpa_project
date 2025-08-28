@@ -1,12 +1,12 @@
 package com.david.jpa_project.model.entity;
 
+import com.david.jpa_project.model.embeddable.AuditData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -23,7 +23,7 @@ public class Credential {
     private String email;
 
     @Basic(optional = false)
-    @Column(length = 15)
+    @Column(length = 40)
     private String password;
 
     @Basic(optional = false)
@@ -34,13 +34,10 @@ public class Credential {
     @Column(name = "is_verified")
     private Boolean isVerified;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Column(name = "upadated_at")
-    private Timestamp updatedAt;
+    @Embedded
+    private AuditData auditData;
 }

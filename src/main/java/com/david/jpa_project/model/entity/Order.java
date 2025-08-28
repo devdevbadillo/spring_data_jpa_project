@@ -1,5 +1,6 @@
 package com.david.jpa_project.model.entity;
 
+import com.david.jpa_project.model.embeddable.AuditData;
 import com.david.jpa_project.model.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,17 +21,23 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(
+            name = "T_ORDER_PRODUCTS",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"),
+            schema = "demo"
+    )
+    private List<Product> products;
+
     @Enumerated(EnumType.STRING)
     @Basic(optional = false)
     private OrderStatus status;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Column(name = "upadated_at")
-    private Timestamp updatedAt;
+    @Embedded
+    private AuditData auditData;
 }
