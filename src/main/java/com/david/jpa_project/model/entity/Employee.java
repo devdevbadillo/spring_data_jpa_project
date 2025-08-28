@@ -1,22 +1,13 @@
 package com.david.jpa_project.model.entity;
 
+import com.david.jpa_project.model.enums.JobTitle;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.sql.Timestamp;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name = "T_CUSTOMERS", schema = "demo",
-        uniqueConstraints = { @UniqueConstraint( columnNames = { "phone_number" } ) }
-)
-public class Customer {
+@Table(name = "T_EMPLOYEES", schema = "demo")
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,9 +23,9 @@ public class Customer {
     @Transient
     private String fullName;
 
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Column(length = 20, name = "phone_number")
-    private String phoneNumber;
+    @Enumerated(EnumType.STRING)
+    @Basic(optional = false)
+    private JobTitle jobTitle;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Basic(optional = false, fetch = FetchType.LAZY)
@@ -45,4 +36,8 @@ public class Customer {
     @Basic(optional = false, fetch = FetchType.LAZY)
     @Column(name = "upadated_at")
     private Timestamp updatedAt;
+
+    @Basic(optional = false, fetch = FetchType.LAZY)
+    @Column(name = "user_audit")
+    private String userAudit;
 }

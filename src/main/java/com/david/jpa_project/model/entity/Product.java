@@ -17,7 +17,6 @@ import java.sql.Timestamp;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
     private Long id;
 
     @Basic(optional = false)
@@ -35,7 +34,16 @@ public class Product {
     private Integer stockQuantity;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Basic(optional = false)
-    @Column(name = "audit_date")
-    private Timestamp auditDate;
+    @Basic(optional = false, fetch = FetchType.LAZY)
+    @Column(name = "created_at", updatable = false)
+    private Timestamp createdAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Basic(optional = false, fetch = FetchType.LAZY)
+    @Column(name = "upadated_at")
+    private Timestamp updatedAt;
+
+    @Basic(optional = false, fetch = FetchType.LAZY)
+    @Column(name = "user_audit")
+    private String userAudit;
 }
