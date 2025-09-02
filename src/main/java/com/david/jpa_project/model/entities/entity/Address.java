@@ -1,12 +1,13 @@
-package com.david.jpa_project.model.entity;
+package com.david.jpa_project.model.entities.entity;
 
+import com.david.jpa_project.model.entities.embeddable.AuditData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -36,16 +37,12 @@ public class Address {
     private String country;
 
     @Basic(optional = false)
-    @Column(length = 20, name = "zip_code")
+    @Column(length = 20)
     private String zipCode;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Column(name = "created_at", updatable = false)
-    private Timestamp createdAt;
+    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
+    private List<Order> orders;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Column(name = "upadated_at")
-    private Timestamp updatedAt;
+    @Embedded
+    private AuditData auditData;
 }

@@ -1,4 +1,4 @@
-package com.david.jpa_project.model.enums;
+package com.david.jpa_project.model.entities.enums;
 
 import lombok.Getter;
 
