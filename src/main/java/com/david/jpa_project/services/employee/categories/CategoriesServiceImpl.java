@@ -1,6 +1,6 @@
 package com.david.jpa_project.services.employee.categories;
 
-import com.david.jpa_project.model.repositories.CategoryRepository;
+import com.david.jpa_project.model.repositories.jpql.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 @Service

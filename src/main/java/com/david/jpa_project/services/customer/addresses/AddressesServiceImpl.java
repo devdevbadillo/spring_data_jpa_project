@@ -1,6 +1,6 @@
 package com.david.jpa_project.services.customer.addresses;
 
-import com.david.jpa_project.model.repositories.AddressRepository;
+import com.david.jpa_project.model.repositories.jpql.AddressRepository;
 import org.springframework.stereotype.Service;
 
 @Service

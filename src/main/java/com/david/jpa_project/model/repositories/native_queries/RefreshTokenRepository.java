@@ -1,4 +1,4 @@
-package com.david.jpa_project.model.repositories;
+package com.david.jpa_project.model.repositories.native_queries;
 
 import com.david.jpa_project.model.entities.embeddable.RefreshTokenId;
 import com.david.jpa_project.model.entities.entity.RefreshToken;
