@@ -1,6 +1,6 @@
 package com.david.jpa_project.services.employee.products;
 
-import com.david.jpa_project.model.repositories.ProductRepository;
+import com.david.jpa_project.model.repositories.pagination_and_sort.ProductRepository;
 import org.springframework.stereotype.Service;
 
 @Service
