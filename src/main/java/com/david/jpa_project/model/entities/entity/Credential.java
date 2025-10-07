@@ -16,10 +16,8 @@ import lombok.Setter;
 @Table(name = "T_CREDENTIALS", schema = "demo")
 public class Credential {
     @Id
-    private Long id;
-
     @Basic(optional = false)
-    @Column(unique = true, length = 50)
+    @Column(unique = true, length = 100)
     private String email;
 
     @Basic(optional = false)

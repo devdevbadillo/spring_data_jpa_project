@@ -23,8 +23,7 @@ public class Product {
     @Basic(optional = false)
     private String name;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
+    @Column(columnDefinition = "text")
     private String description;
 
     @Basic(optional = false)

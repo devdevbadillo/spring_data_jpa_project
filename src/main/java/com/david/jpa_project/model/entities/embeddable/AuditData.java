@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Embeddable
 @Getter
@@ -13,13 +13,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuditData implements Serializable {
-    @Temporal(TemporalType.TIMESTAMP)
     @Basic(optional = false)
     @Column(name = "created_at", updatable = false)
-    private Date createdAt;
+    private Timestamp createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Basic(optional = false)
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private Timestamp updatedAt;
 }
