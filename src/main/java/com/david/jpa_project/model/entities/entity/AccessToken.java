@@ -13,15 +13,16 @@ import lombok.*;
 @Table(name = "T_ACCESS_TOKEN", schema = "demo")
 public class AccessToken {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Basic(optional = false)
     private String jwtId;
 
     @Enumerated(EnumType.STRING)
     @Basic(optional = false)
     private AccessType accessType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Embedded
     private AuditData auditData;

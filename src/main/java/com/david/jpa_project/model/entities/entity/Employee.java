@@ -24,8 +24,7 @@ public class Employee extends User {
     @OneToOne(mappedBy = "user")
     private Credential credential;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AccessToken> accessTokens;
 
     @Embedded

@@ -1,6 +1,6 @@
-package com.david.jpa_project.controller.http.customer.orders;
+package com.david.jpa_project.controller.http;
 
-import com.david.jpa_project.services.customer.orders.IOrdersService;
+import com.david.jpa_project.services.interfaces.IOrdersService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

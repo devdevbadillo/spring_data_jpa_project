@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface AccessTokenRepository extends JpaRepository<AccessToken, Long> {
+public interface AccessTokenRepository extends JpaRepository<AccessToken, String> {
 
     @Query(value= "SELECT * FROM T_ACCESS_TOKEN WHERE jwt_id = ?1", nativeQuery = true)
     AccessToken findByJwtId(String jwtId);

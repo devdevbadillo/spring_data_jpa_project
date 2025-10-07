@@ -13,5 +13,4 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     List<Customer> findCustomersByPhoneNumberStartingWith(String start);
 
-    Long countCustomersByAuditData_CreatedAtBetween(Date start, Date end);
 }

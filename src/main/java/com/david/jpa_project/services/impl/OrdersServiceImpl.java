@@ -1,6 +1,7 @@
-package com.david.jpa_project.services.customer.orders;
+package com.david.jpa_project.services.impl;
 
 import com.david.jpa_project.model.repositories.pagination_and_sort.OrderRepository;
+import com.david.jpa_project.services.interfaces.IOrdersService;
 import org.springframework.stereotype.Service;
 
 @Service
