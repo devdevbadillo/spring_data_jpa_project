@@ -7,4 +7,5 @@ public interface IAddressesService {
 
     PageOut<AddressOut> getAddressesByCity(String city, int page, int size);
 
+    PageOut<AddressOut> getAddressesByCountryLike(String pattern, int page, int size, String orderByCity);
 }
