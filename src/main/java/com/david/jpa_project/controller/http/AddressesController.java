@@ -39,4 +39,5 @@ public class AddressesController {
     ) {
         return ResponseEntity.ok(addressesService.getAddressesByCountryLike(pattern, page, size, orderByCity));
     }
+    
 }
