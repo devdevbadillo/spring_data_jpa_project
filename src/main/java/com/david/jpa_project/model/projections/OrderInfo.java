@@ -17,7 +17,7 @@ public interface OrderInfo {
 
     String getState();
 
-    String getContact();
+    String getPhoneContact();
 
     String getOrderStatus();
 }
