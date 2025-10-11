@@ -38,6 +38,10 @@ public class Order {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @Basic(optional = false)
+    @Column(name = "phone_contact")
+    private String phoneContact;
+
     @Embedded
     private AuditData auditData;
 }
