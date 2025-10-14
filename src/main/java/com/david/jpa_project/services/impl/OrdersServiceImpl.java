@@ -1,5 +1,6 @@
 package com.david.jpa_project.services.impl;
 
+import com.david.jpa_project.controller.advice.exceptions.ResourceNotFoundException;
 import com.david.jpa_project.controller.dto.out.AddressOut;
 import com.david.jpa_project.controller.dto.out.OrderInfoOut;
 import com.david.jpa_project.controller.dto.out.PageOut;
@@ -33,11 +34,11 @@ public class OrdersServiceImpl implements IOrdersService {
     }
 
     @Override
-    public OrderInfoOut findOrderById(Long orderId) {
+    public OrderInfoOut findOrderById(Long orderId) throws ResourceNotFoundException {
         List<OrderInfo> projections = orderRepository.findOrderById(orderId);
 
         if (projections.isEmpty()) {
-            return new OrderInfoOut();
+            throw new ResourceNotFoundException("Order not found");
         }
 
         OrderInfo firstProjection = projections.getFirst();
