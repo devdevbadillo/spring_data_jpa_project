@@ -1,5 +1,6 @@
 package com.david.jpa_project.controller.advice;
 
+import com.david.jpa_project.controller.advice.exceptions.ResourceNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +43,12 @@ public class ControllerAdvice {
     ){
         String msg = "No es un valor valido para el parametro: " + ex.getName();
         return new ResponseEntity<>(Map.of(KEY_MESSAGE, msg), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    private ResponseEntity<Map<String, String>> handleResourceNotFoundException(
+            ResourceNotFoundException ex
+    ){
+        return new ResponseEntity<>(Map.of(KEY_MESSAGE, ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 }

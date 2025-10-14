@@ -1,5 +1,6 @@
 package com.david.jpa_project.services.impl;
 
+import com.david.jpa_project.controller.advice.exceptions.ResourceNotFoundException;
 import com.david.jpa_project.controller.dto.out.AddressOut;
 import com.david.jpa_project.controller.dto.out.PageOut;
 import com.david.jpa_project.model.entities.entity.Address;
@@ -23,9 +24,13 @@ public class AddressesServiceImpl implements IAddressesService {
     }
 
     @Override
-    public PageOut<AddressOut> getAddressesByCity(String city, int page, int size) {
+    public PageOut<AddressOut> getAddressesByCity(String city, int page, int size) throws ResourceNotFoundException {
         Pageable pageable = PageRequest.of(page, size);
         Page<Address> addresses = addressRepository.findAddressesByCity(city, pageable);
+
+        if (addresses.isEmpty()){
+            throw new ResourceNotFoundException("Addresses not found");
+        }
 
         return mapper.toPageOut(addresses);
     }
