@@ -1,5 +1,6 @@
 package com.david.jpa_project.model.entities.entity;
 
+import com.david.jpa_project.model.entities.mapped.Auditable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "T_USERS", schema = "demo")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User {
+public class User extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

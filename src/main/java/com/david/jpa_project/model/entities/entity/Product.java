@@ -1,6 +1,6 @@
 package com.david.jpa_project.model.entities.entity;
 
-import com.david.jpa_project.model.entities.embeddable.AuditData;
+import com.david.jpa_project.model.entities.mapped.Auditable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "T_PRODUCTS", schema = "demo")
-public class Product {
+public class Product extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,9 +40,6 @@ public class Product {
             schema = "demo"
     )
     private List<Category> categories;
-
-    @Embedded
-    private AuditData auditData;
 
     @Basic(optional = false)
     private String userAudit;

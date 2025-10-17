@@ -1,4 +1,4 @@
-package com.david.jpa_project.model.repositories.jpql;
+package com.david.jpa_project.model.repositories.derived_queries;
 
 import com.david.jpa_project.model.entities.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;

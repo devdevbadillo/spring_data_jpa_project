@@ -20,7 +20,7 @@ public class ProductOut {
     private Integer stockQuantity;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private int quantity;
+    private Integer quantity;
 
     public boolean equals(Object obj){
         if(obj instanceof ProductOut other){

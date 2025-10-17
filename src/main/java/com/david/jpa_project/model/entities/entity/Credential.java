@@ -1,12 +1,11 @@
 package com.david.jpa_project.model.entities.entity;
 
-import com.david.jpa_project.model.entities.embeddable.AuditData;
+import com.david.jpa_project.model.entities.mapped.Auditable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 @Getter
 @Setter
@@ -14,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "T_CREDENTIALS", schema = "demo")
-public class Credential {
+public class Credential extends  Auditable{
     @Id
     @Basic(optional = false)
     @Column(unique = true, length = 100)
@@ -33,7 +32,4 @@ public class Credential {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @Embedded
-    private AuditData auditData;
 }

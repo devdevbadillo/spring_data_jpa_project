@@ -1,6 +1,6 @@
 package com.david.jpa_project.model.entities.entity;
 
-import com.david.jpa_project.model.entities.embeddable.AuditData;
+import com.david.jpa_project.model.entities.mapped.Auditable;
 import com.david.jpa_project.model.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "T_ORDERS", schema = "demo")
-public class Order {
+public class Order extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,7 +41,4 @@ public class Order {
     @Basic(optional = false)
     @Column(name = "phone_contact")
     private String phoneContact;
-
-    @Embedded
-    private AuditData auditData;
 }
