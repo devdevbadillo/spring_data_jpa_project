@@ -1,6 +1,6 @@
 package com.david.jpa_project.model.entities.entity;
 
-import com.david.jpa_project.model.entities.embeddable.AuditData;
+import com.david.jpa_project.model.entities.mapped.Auditable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "T_ADDRESSES", schema = "demo")
-public class Address {
+public class Address extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,7 +42,4 @@ public class Address {
 
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
     private List<Order> orders;
-
-    @Embedded
-    private AuditData auditData;
 }

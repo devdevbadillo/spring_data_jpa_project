@@ -1,6 +1,5 @@
 package com.david.jpa_project.model.entities.entity;
 
-import com.david.jpa_project.model.entities.embeddable.AuditData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +35,4 @@ public class Customer extends User{
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AccessToken> accessTokens;
-
-    @Embedded
-    private AuditData auditData;
 }
