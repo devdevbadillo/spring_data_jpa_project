@@ -1,4 +1,4 @@
-package com.david.jpa_project.controller.doc.config;
+package com.david.jpa_project.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;

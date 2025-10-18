@@ -1,5 +1,6 @@
 package com.david.jpa_project;
 
+import com.david.jpa_project.controller.dto.out.OrderInfoOut;
 import com.david.jpa_project.model.entities.entity.Address;
 import com.david.jpa_project.model.entities.entity.Customer;
 import com.david.jpa_project.model.entities.entity.Order;
@@ -7,6 +8,8 @@ import com.david.jpa_project.model.entities.entity.Product;
 import com.david.jpa_project.model.entities.enums.OrderStatus;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Factory {
     public static Customer createCustomer() {
@@ -51,5 +54,26 @@ public class Factory {
         order.setCreatedAt(Instant.now());
         order.setUpdatedAt(Instant.now());
         return order;
+    }
+
+    public static List<Order> createOrders() {
+        List<Order> orders = new ArrayList<>();
+
+        Order order = createOrder();
+        order.setId(1L);
+        order.setProducts(List.of(createProduct()));
+        order.setAddress(createAddress());
+
+        orders.add(order);
+        return orders;
+    }
+
+    public static OrderInfoOut createOrderInfoOut() {
+        OrderInfoOut orderInfoOut = new OrderInfoOut();
+        orderInfoOut.setOrderId(1L);
+        orderInfoOut.setOrderStatus("PENDING");
+        orderInfoOut.setPhoneContact("5512345678");
+        orderInfoOut.setOrderAmount(15000.00);
+        return orderInfoOut;
     }
 }
