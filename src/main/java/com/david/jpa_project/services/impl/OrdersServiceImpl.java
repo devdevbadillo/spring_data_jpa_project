@@ -11,6 +11,7 @@ import com.david.jpa_project.model.mappers.OrderInfoMapper;
 import com.david.jpa_project.model.projections.OrderInfo;
 import com.david.jpa_project.model.repositories.native_queries.OrderRepository;
 import com.david.jpa_project.services.interfaces.IOrdersService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class OrdersServiceImpl implements IOrdersService {
 
     private final OrderRepository orderRepository;
@@ -35,6 +37,8 @@ public class OrdersServiceImpl implements IOrdersService {
 
     @Override
     public OrderInfoOut findOrderById(Long orderId) throws ResourceNotFoundException {
+        log.info("Finding order by id: {}", orderId);
+
         List<OrderInfo> projections = orderRepository.findOrderById(orderId);
 
         if (projections.isEmpty()) {
@@ -54,6 +58,7 @@ public class OrdersServiceImpl implements IOrdersService {
 
     @Override
     public PageOut<OrderInfoOut> findOrdersByUser(Long userId, int page, int size) {
+        log.info("Finding orders by user: {}", userId);
         Pageable pageable = PageRequest.of(page, size);
         Page<Order> orders = orderRepository.findOrdersByUser(userId, pageable);
 
