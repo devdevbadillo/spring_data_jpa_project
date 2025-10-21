@@ -1,5 +1,6 @@
 package com.david.jpa_project.controller;
 
+import com.david.jpa_project.controller.advice.exceptions.ResourceNotFoundException;
 import com.david.jpa_project.controller.dto.out.OrderInfoOut;
 import com.david.jpa_project.controller.http.OrdersController;
 import com.david.jpa_project.model.entities.enums.OrderStatus;
@@ -44,5 +45,20 @@ class OrdersControllerTest {
                 .andExpect(jsonPath("$.orderId").value(orderId))
                 .andExpect(jsonPath("$.orderStatus").value("COMPLETED"))
                 .andExpect(jsonPath("$.orderAmount").value(100.50));
+    }
+
+    @Test
+    void findOrderById_WhenOrderDoesNotExist_ShouldThrowResourceNotFoundException() throws Exception {
+        // Arrange
+        Long orderId = 100L;
+        when(ordersService.findOrderById(orderId)).thenThrow(
+                new ResourceNotFoundException("Order not found")
+        );
+
+        // Act & Assert
+        mockMvc.perform(get("/v1/orders/{orderId}", orderId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }

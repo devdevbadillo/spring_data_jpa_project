@@ -1,17 +1,16 @@
-package com.david.jpa_project;
+package com.david.jpa_project.factory;
 
 import com.david.jpa_project.controller.dto.out.OrderInfoOut;
 import com.david.jpa_project.model.entities.entity.Address;
 import com.david.jpa_project.model.entities.entity.Customer;
 import com.david.jpa_project.model.entities.entity.Order;
-import com.david.jpa_project.model.entities.entity.Product;
 import com.david.jpa_project.model.entities.enums.OrderStatus;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Factory {
+public class OrderFactory {
     public static Customer createCustomer() {
         Customer customer = new Customer();
         customer.setName("Juan");
@@ -34,18 +33,6 @@ public class Factory {
         return address;
     }
 
-    public static Product createProduct() {
-        Product product = new Product();
-        product.setName("Laptop Dell");
-        product.setDescription("Laptop Dell i7 16GB 512GB");
-        product.setPrice(15000.00);
-        product.setStockQuantity(30);
-        product.setCreatedAt(Instant.now());
-        product.setUpdatedAt(Instant.now());
-        product.setUserAudit("test@test.com");
-        return product;
-    }
-
     public static Order createOrder() {
         Order order = new Order();
         OrderStatus status = OrderStatus.PENDING;
@@ -61,7 +48,7 @@ public class Factory {
 
         Order order = createOrder();
         order.setId(1L);
-        order.setProducts(List.of(createProduct()));
+        order.setProducts(List.of(ProductFactory.createProduct()));
         order.setAddress(createAddress());
 
         orders.add(order);

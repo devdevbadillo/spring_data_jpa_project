@@ -1,6 +1,7 @@
 package com.david.jpa_project.repository;
 
-import com.david.jpa_project.Factory;
+import com.david.jpa_project.factory.OrderFactory;
+import com.david.jpa_project.factory.ProductFactory;
 import com.david.jpa_project.model.entities.entity.Address;
 import com.david.jpa_project.model.entities.entity.Customer;
 import com.david.jpa_project.model.entities.entity.Order;
@@ -32,18 +33,18 @@ public class OrderRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        testCustomer = Factory.createCustomer();
+        testCustomer = OrderFactory.createCustomer();
         testCustomer = entityManager.persist(testCustomer);
 
-        Address testAddress = entityManager.persist(Factory.createAddress());
+        Address testAddress = entityManager.persist(OrderFactory.createAddress());
 
         testCustomer.setAddresses(List.of(testAddress));
         testCustomer = entityManager.persist(testCustomer);
 
-        Product testProduct = Factory.createProduct();
+        Product testProduct = ProductFactory.createProduct();
         entityManager.persist(testProduct);
 
-        testOrder = Factory.createOrder();
+        testOrder = OrderFactory.createOrder();
         testOrder.setAddress(testAddress);
         testOrder.setProducts(List.of(testProduct));
         testOrder = entityManager.persist(testOrder);
