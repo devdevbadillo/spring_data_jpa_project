@@ -1,6 +1,6 @@
 package com.david.jpa_project.services;
 
-import com.david.jpa_project.Factory;
+import com.david.jpa_project.factory.OrderFactory;
 import com.david.jpa_project.controller.advice.exceptions.ResourceNotFoundException;
 import com.david.jpa_project.controller.dto.out.OrderInfoOut;
 import com.david.jpa_project.controller.dto.out.PageOut;
@@ -51,11 +51,11 @@ public class OrderServiceTest {
         OrderInfo projection2 = mock(OrderInfo.class);
         mockProjections = Arrays.asList(projection1, projection2);
 
-        List<Order> orders = Factory.createOrders();
+        List<Order> orders = OrderFactory.createOrders();
         Pageable pageable = PageRequest.of(PAGE, SIZE);
         mockPage = new PageImpl<>(orders, pageable, orders.size());
 
-        List<OrderInfoOut> orderInfoOuts = List.of(Factory.createOrderInfoOut());
+        List<OrderInfoOut> orderInfoOuts = List.of(OrderFactory.createOrderInfoOut());
         mockPageOut = PageOut.<OrderInfoOut>builder()
                 .content(orderInfoOuts)
                 .totalElements(mockPage.getTotalElements())
