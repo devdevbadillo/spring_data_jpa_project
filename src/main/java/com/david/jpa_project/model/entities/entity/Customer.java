@@ -17,15 +17,6 @@ import java.util.List;
 @Table(name = "T_CUSTOMERS", schema = "demo",
         uniqueConstraints = { @UniqueConstraint( columnNames = { "phone_number" } ) }
 )
-@NamedStoredProcedureQuery(
-        name = "Customer.getStats",
-        procedureName = "demo.sp_get_customer_stats",
-        parameters = {
-                @StoredProcedureParameter(mode = ParameterMode.OUT, name = "total_customers", type = Long.class),
-                @StoredProcedureParameter(mode = ParameterMode.OUT, name = "enabled_customers", type = Long.class),
-                @StoredProcedureParameter(mode = ParameterMode.OUT, name = "verified_customers", type = Long.class)
-        }
-)
 public class Customer extends User{
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Credential credential;

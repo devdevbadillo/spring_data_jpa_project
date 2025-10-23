@@ -1,7 +1,7 @@
 package com.david.jpa_project.controller.dto.out;
 
-public record CreateCustomerOut(
-        Long customerId,
+public record CreateUserOut(
+        Long userId,
         String message
 ) {
 }

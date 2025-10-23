@@ -1,6 +1,7 @@
 package com.david.jpa_project.controller.advice;
 
 import com.david.jpa_project.controller.advice.exceptions.ResourceNotFoundException;
+import com.david.jpa_project.controller.advice.exceptions.StoreProcedureException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -57,6 +58,13 @@ public class ControllerAdvice {
     private ResponseEntity<Map<String, String>> handleDataIntegrityViolationException(
             DataIntegrityViolationException ex
     ){
-        return new ResponseEntity<>(Map.of(KEY_MESSAGE, ex.getMessage()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(Map.of(KEY_MESSAGE, ex.getMessage()), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(StoreProcedureException.class)
+    private ResponseEntity<Map<String, String>> handleStoreProcedureException(
+            StoreProcedureException ex
+    ){
+        return new ResponseEntity<>(Map.of(KEY_MESSAGE, ex.getMessage()), HttpStatus.valueOf(ex.getStatusCode().intValue()));
     }
 }
