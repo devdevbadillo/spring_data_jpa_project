@@ -32,4 +32,5 @@ public interface BaseMapper<T, V> {
     List<T> toOutList(List<V> outList);
 
     T toOut(V out);
+
 }
