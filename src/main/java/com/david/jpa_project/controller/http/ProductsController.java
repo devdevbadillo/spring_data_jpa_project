@@ -1,9 +1,13 @@
 package com.david.jpa_project.controller.http;
 
+import com.david.jpa_project.controller.advice.exceptions.ResourceNotFoundException;
 import com.david.jpa_project.controller.doc.APIProductsDocumentation;
 import com.david.jpa_project.controller.dto.out.PageOut;
 import com.david.jpa_project.controller.dto.out.ProductOut;
+import com.david.jpa_project.controller.dto.request.RequestCreateProductDTO;
 import com.david.jpa_project.services.interfaces.IProductsService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -38,6 +42,15 @@ public class ProductsController implements APIProductsDocumentation {
             @RequestParam int size
     ) {
         return ResponseEntity.ok(productsService.getProductsByCategories(categories, page, size));
+    }
+
+    @PostMapping("/create-product")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createProduct(
+            @Valid @RequestBody RequestCreateProductDTO product,
+            @RequestHeader("user-executor") String userExecutor
+    ) throws ResourceNotFoundException {
+        this.productsService.createProduct(product, userExecutor);
     }
 
 }
