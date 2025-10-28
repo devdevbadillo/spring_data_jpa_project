@@ -37,7 +37,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
         SELECT
              o.*
         FROM demo.t_orders o
-        WHERE o.customer_id = :userId
+        JOIN demo.t_addresses a ON a.id = o.address_id
+        WHERE a.customer_id = :userId
     """, nativeQuery = true)
     Page<Order> findOrdersByUser(Long userId, Pageable pageable);
 }

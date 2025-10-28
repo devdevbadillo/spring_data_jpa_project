@@ -1,5 +1,6 @@
 package com.david.jpa_project.controller.advice;
 
+import com.david.jpa_project.controller.advice.exceptions.BusinessException;
 import com.david.jpa_project.controller.advice.exceptions.ResourceNotFoundException;
 import com.david.jpa_project.controller.advice.exceptions.StoreProcedureException;
 import jakarta.validation.ConstraintViolationException;
@@ -66,5 +67,12 @@ public class ControllerAdvice {
             StoreProcedureException ex
     ){
         return new ResponseEntity<>(Map.of(KEY_MESSAGE, ex.getMessage()), HttpStatus.valueOf(ex.getStatusCode().intValue()));
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    private ResponseEntity<Map<String, String>> handleBusinessException(
+            BusinessException ex
+    ){
+        return new ResponseEntity<>(Map.of(KEY_MESSAGE, ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AddressesServiceImpl implements IAddressesService {
@@ -24,6 +25,7 @@ public class AddressesServiceImpl implements IAddressesService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageOut<AddressOut> getAddressesByCity(String city, int page, int size) throws ResourceNotFoundException {
         Pageable pageable = PageRequest.of(page, size);
         Page<Address> addresses = addressRepository.findAddressesByCity(city, pageable);
@@ -36,6 +38,7 @@ public class AddressesServiceImpl implements IAddressesService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageOut<AddressOut> getAddressesByCountryLike(String pattern, int page, int size, String orderByCity) {
         Sort.Direction direction = orderByCity.equalsIgnoreCase("desc")
                 ? Sort.Direction.DESC

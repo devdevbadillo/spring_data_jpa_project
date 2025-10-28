@@ -25,13 +25,8 @@ public class Customer extends User{
     @Column(length = 20)
     private String phoneNumber;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    @OneToMany(mappedBy = "customer", fetch =  FetchType.LAZY)
     private List<Address> addresses;
-
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
-    private List<Order> orders;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AccessToken> accessTokens;

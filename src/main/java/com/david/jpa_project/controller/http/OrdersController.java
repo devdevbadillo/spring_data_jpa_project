@@ -1,9 +1,11 @@
 package com.david.jpa_project.controller.http;
 
+import com.david.jpa_project.controller.advice.exceptions.BusinessException;
 import com.david.jpa_project.controller.advice.exceptions.ResourceNotFoundException;
 import com.david.jpa_project.controller.doc.APIOrdersDocumentation;
 import com.david.jpa_project.controller.dto.out.OrderInfoOut;
 import com.david.jpa_project.controller.dto.out.PageOut;
+import com.david.jpa_project.controller.dto.request.RequestCreateOrderDTO;
 import com.david.jpa_project.services.interfaces.IOrdersService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +35,10 @@ public class OrdersController implements APIOrdersDocumentation {
             @RequestParam int size
     ) {
         return ResponseEntity.ok(ordersService.findOrdersByUser(userId, page, size));
+    }
+
+    @PostMapping("/generate")
+    public ResponseEntity<OrderInfoOut> generateOrder(@RequestBody RequestCreateOrderDTO orderInfoIn) throws ResourceNotFoundException, BusinessException {
+        return ResponseEntity.ok(ordersService.createOrder(orderInfoIn.products(), orderInfoIn.address()));
     }
 }
