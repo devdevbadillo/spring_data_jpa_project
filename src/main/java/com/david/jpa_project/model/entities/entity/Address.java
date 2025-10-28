@@ -42,4 +42,8 @@ public class Address extends Auditable{
 
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
     private List<Order> orders;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }

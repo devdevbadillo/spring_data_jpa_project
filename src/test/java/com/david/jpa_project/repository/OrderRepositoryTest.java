@@ -45,7 +45,6 @@ public class OrderRepositoryTest {
         testOrder.setProducts(List.of(testProduct));
         testOrder = entityManager.persist(testOrder);
 
-        testCustomer.setOrders(List.of(testOrder));
         entityManager.flush();
     }
 
