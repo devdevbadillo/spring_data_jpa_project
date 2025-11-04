@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Validated
 @RestController
-@RequestMapping(value = "/v1/orders", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/v1/orders", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrdersController implements APIOrdersDocumentation {
 
     private final IOrdersService ordersService;
@@ -37,7 +37,7 @@ public class OrdersController implements APIOrdersDocumentation {
         return ResponseEntity.ok(ordersService.findOrdersByUser(userId, page, size));
     }
 
-    @PostMapping("/generate")
+    @PostMapping(value = "/generate", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OrderInfoOut> generateOrder(@RequestBody RequestCreateOrderDTO orderInfoIn) throws ResourceNotFoundException, BusinessException {
         return ResponseEntity.ok(ordersService.createOrder(orderInfoIn.products(), orderInfoIn.address()));
     }

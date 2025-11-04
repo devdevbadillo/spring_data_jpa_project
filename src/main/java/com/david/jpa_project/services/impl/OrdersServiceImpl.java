@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,10 +34,10 @@ import static com.david.jpa_project.services.utils.OrderUtils.*;
 @Slf4j
 public class OrdersServiceImpl implements IOrdersService {
 
-    private final AddressRepository addressRepository;
-    private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
     private final OrderInfoMapper orderInfoMapper;
+    private final AddressRepository addressRepository;
+    private final ProductRepository productRepository;
 
     public OrdersServiceImpl(
             OrderRepository orderRepository,
@@ -87,13 +88,10 @@ public class OrdersServiceImpl implements IOrdersService {
         return orderInfoMapper.toPageOut(orders, orderInfoOuts);
     }
 
-    /* Escenario: Un cliente realiza una compra
-     * - Se crea la orden
-     * - Se reduce el inventario
-     * - Se envía notificación
-     * Si CUALQUIER paso falla, TODO se revierte (rollback)
-     */
-    @Transactional
+    @Transactional(
+            rollbackFor = { BusinessException.class },
+            isolation = Isolation.REPEATABLE_READ
+    )
     public OrderInfoOut createOrder(List<Long> productIds, Long addressId) throws ResourceNotFoundException, BusinessException {
         Address address = addressRepository.findById(addressId)
                 .orElseThrow(() -> new ResourceNotFoundException("La dirección no fue encontrada"));
@@ -108,6 +106,13 @@ public class OrdersServiceImpl implements IOrdersService {
         Map<Long, Product> productMap = products.stream()
                 .collect(Collectors.toMap(Product::getId, Function.identity()));
 
+        // Simulación de pago
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         List<Product> orderedProducts = validateAndReduceStock(productIds, productMap, products);
 
         Order order = new Order();
@@ -117,16 +122,10 @@ public class OrdersServiceImpl implements IOrdersService {
         order.setPhoneContact(address.getCustomer().getPhoneNumber());
         Order savedOrder = orderRepository.save(order);
 
-        // TODO - Enviar un email
-
         log.info("Orden {} creada exitosamente", savedOrder.getId());
         return OrderUtils.mapOrderToOrderInfoOut(savedOrder);
     }
 
-    /**
-     * Escenario: Método que DEBE ser llamado dentro de una transacción
-     * - Métodos auxiliares que asumen contexto transaccional
-     */
     @Transactional(propagation = Propagation.MANDATORY)
     public List<Product> validateAndReduceStock(List<Long> productIds, Map<Long, Product> productMap, List<Product> products) throws BusinessException {
         List<Product> orderedProducts = new ArrayList<>();
@@ -141,7 +140,6 @@ public class OrdersServiceImpl implements IOrdersService {
             product.setStockQuantity(product.getStockQuantity() - 1);
             orderedProducts.add(product);
         }
-
         productRepository.saveAll(products);
 
         return orderedProducts;
