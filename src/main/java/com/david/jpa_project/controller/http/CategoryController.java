@@ -16,7 +16,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @PostMapping
+    @PostMapping(consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void createCategory(@RequestBody RequestCreateCategoryDTO request) {
         this.categoryService.createCategory(request);
