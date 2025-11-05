@@ -27,7 +27,4 @@ public class Customer extends User{
 
     @OneToMany(mappedBy = "customer", fetch =  FetchType.LAZY)
     private List<Address> addresses;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AccessToken> accessTokens;
 }

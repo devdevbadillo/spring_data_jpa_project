@@ -38,9 +38,6 @@ public class Employee extends User {
     @OneToOne(mappedBy = "user")
     private Credential credential;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AccessToken> accessTokens;
-
     @Basic(optional = false)
     private String userAudit;
 }

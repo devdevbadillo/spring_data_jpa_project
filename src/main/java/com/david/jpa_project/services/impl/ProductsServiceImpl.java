@@ -8,7 +8,7 @@ import com.david.jpa_project.model.entities.entity.Category;
 import com.david.jpa_project.model.entities.entity.Product;
 import com.david.jpa_project.model.mappers.ProductMapper;
 import com.david.jpa_project.model.repositories.jpql.ProductRepository;
-import com.david.jpa_project.model.repositories.store_procedures.CategoryRepository;
+import com.david.jpa_project.model.repositories.jpql.CategoryRepository;
 import com.david.jpa_project.services.interfaces.IProductsService;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;

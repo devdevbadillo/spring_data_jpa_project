@@ -3,7 +3,7 @@ package com.david.jpa_project.services.impl;
 import com.david.jpa_project.controller.dto.request.RequestCreateCategoryDTO;
 import com.david.jpa_project.model.entities.entity.Category;
 import com.david.jpa_project.model.mappers.CategoryMapper;
-import com.david.jpa_project.model.repositories.store_procedures.CategoryRepository;
+import com.david.jpa_project.model.repositories.jpql.CategoryRepository;
 import com.david.jpa_project.services.interfaces.ICategoryService;
 import org.springframework.stereotype.Service;
 

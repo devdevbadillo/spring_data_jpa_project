@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "T_CREDENTIALS", schema = "demo")
-public class Credential extends  Auditable{
+public class Credential extends Auditable{
     @Id
     @Basic(optional = false)
     @Column(unique = true, length = 100)
